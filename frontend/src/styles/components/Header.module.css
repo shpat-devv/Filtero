@@ -1,0 +1,28 @@
+header {
+    display: flex;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 40px;
+    border: 2px solid black;
+}
+
+h1 {
+    font-family: var(--font-title);
+}
+
+.headerButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+.headerButton img {
+    width: 24px;
+    height: 24px;
+}
