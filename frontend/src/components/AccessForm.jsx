@@ -7,6 +7,8 @@ import api from "../api.js";
 export default function Form({ route, method }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [pfp, setPfp] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -16,8 +18,13 @@ export default function Form({ route, method }) {
         e.preventDefault();
         setLoading(true);
 
+        if (method === "register" && (!username || !password || !email || !pfp)) {
+            alert("Please fill in all fields for registration.");
+            setLoading(false);
+            return;
+        }
         try {
-            const res = await api.post(route, { username, password });
+            const res = await api.post(route, { username, password, email, pfp });
 
             if (method === "login") {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
@@ -52,6 +59,33 @@ export default function Form({ route, method }) {
                 placeholder="Password"
                 className={styles.formInput}
             />
+            {method === "register" && (
+                <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                    className={styles.formInput}
+                />
+            )}
+            {method === "register" && (
+                <input
+                    type="text"
+                    onChange={(e) => setPfp(e.target.value)}
+                    placeholder="Profile Picture URL"
+                    className={styles.formInput}
+                />
+            )}
+            {method === "login" && (
+                <p>
+                    Don't have an account? <a href="/register">Register</a>
+                </p>
+            )}
+            {method === "register" && (
+                <p>
+                    Already have an account? <a href="/login">Login</a>
+                </p>
+            )}
             <button className={styles.formButton} type="submit" disabled={loading}>
                 {loading ? "Loading..." : name}
             </button>

@@ -16,6 +16,14 @@ Filtero is a user-friendly platform for applying preset filters to your images, 
 
 ---
 
+## Todo
+
+- [ ] Add sign up button on login page
+- [ ] Add Model to link with User on sign up
+- [ ] Fix Header 
+- [ ] Add Filter section
+- [ ] Add Footer
+
 ## Features
 
 - **Preset Filters:** Instantly apply a variety of filters to your images.
