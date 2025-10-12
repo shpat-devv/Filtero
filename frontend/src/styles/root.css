@@ -1,16 +1,8 @@
-@font-face {
-    font-family: "Slime Drip";
-    src: url("/assets/fonts/SlimeDrip.ttf") format("truetype");
-}
-
 :root {
-    --color-primary: #10b51d;
-    --color-secondary: #6b03da;
-    --color-secondary-light: #9b59eb;
-    --color-secondary-dark: #4a02a8;
-    --color-background: #1c1c1c;
+    --color-primary: #ffffff;
+    --color-secondary: #000000;
+    --color-background: #6f0be2;
     --font-family: 'Roboto', sans-serif;
-    --font-title: "Slime Drip", cursive;
-    --spacing-unit: 8px;
+    --font-title: 'Montserrat', sans-serif; --spacing-unit: 8px;
     --border-radius: 4px;
 }
