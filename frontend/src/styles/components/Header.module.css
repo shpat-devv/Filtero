@@ -4,14 +4,16 @@
   align-items: center;
   width: 100%;
   padding: 20px;
-  gap: 15px;
+  gap: 5px;
   box-sizing: border-box;
+  color: var(--color-primary);
+  font-family: var(--font-family);
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 140px;
 }
 
 .header-right {
@@ -21,7 +23,7 @@
 
 
 .title {
-  font-size: 28px;
+  font-size: 40px;
   font-weight: bold;
   margin: 0;
 }
@@ -33,11 +35,12 @@
   border: none;
   transition: all 0.5s ease-in-out;
   font-size: 20px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 600;
   display: flex;
   align-items: center;
   position: relative;
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
 }
 
 .menu-btn:hover {

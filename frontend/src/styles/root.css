@@ -6,3 +6,19 @@
     --font-title: 'Montserrat', sans-serif; --spacing-unit: 8px;
     --border-radius: 4px;
 }
+
+.spacer {
+  background-color: var(--color-primary);
+  height: 1px;
+  width: 95%;
+  margin-top: 50px;
+  border: none;
+}
+
+.fullSpacer {
+  background-color: var(--color-primary);
+  height: 1px;
+  width: 100%;
+  margin-top: 50px;
+  border: none;
+}
