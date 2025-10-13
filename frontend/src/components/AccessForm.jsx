@@ -24,7 +24,14 @@ export default function Form({ route, method }) {
             return;
         }
         try {
-            const res = await api.post(route, { username, password, email, pfp });
+            let res;
+            if (method === "login") {
+                res = await api.post(route, { username, password });
+            } else if (method === "register") {
+                res = await api.post(route, { username, password, "profile": { email, pfp } });
+            } else {
+                throw new Error("Invalid method");
+            }
 
             if (method === "login") {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
