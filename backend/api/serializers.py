@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import UserProfile
+from .models import UserProfile, Image
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,3 +23,9 @@ class UserSerializer(serializers.ModelSerializer):
             UserProfile.objects.create(user=user, **profile_data)
 
         return user
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = ["id", "user", "image", "uploaded_at"]
+        read_only_fields = ["id", "uploaded_at", "user"] #automatically sets id, upload time and user

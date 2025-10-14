@@ -1,8 +1,21 @@
 import React from "react";
 import Header from "../components/Header";
+import FileUploader from "../components/FileUploader";
 
 import Styles from "../styles/pages/Home.module.css";
 
+
+function handleApplyFilterClick() {
+    console.log("Apply Filter button clicked");
+}
+
+function handleDrawModeClick() {
+    console.log("Draw Mode button clicked");
+}
+
+function handleDownloadClick() {
+    console.log("Download button clicked");
+}
 
 export default function HomePage() {
     return <div className={Styles.homePageContainer}>
@@ -22,10 +35,10 @@ export default function HomePage() {
                 <img className={Styles.homeContentImage} src="default.jpeg" alt="image" />
             </div>
             <div className={Styles.contentRight}>
-                <button className={Styles.ctaButton}>Upload</button>
-                <button className={Styles.ctaButton}>Apply Filter</button>
-                <button className={Styles.ctaButton}>Draw Mode</button>
-                <button className={Styles.ctaButton}>Download</button>
+                <FileUploader />
+                <button className={Styles.ctaButton} onClick={handleApplyFilterClick}>Apply Filter</button>
+                <button className={Styles.ctaButton} onClick={handleDrawModeClick}>Draw Mode</button>
+                <button className={Styles.ctaButton} onClick={handleDownloadClick}>Download</button>
             </div>
         </div>
     </div>;

@@ -1,7 +1,7 @@
-from django.urls import path
-from . import views
+from rest_framework.routers import DefaultRouter
+from .views import ImageViewSet
 
-urlpatterns = [
+router = DefaultRouter()
+router.register("image", ImageViewSet)
 
-]
-
+urlpatterns = router.urls
