@@ -17,5 +17,16 @@ export default function HomePage() {
             ]}
         />
         <div className="spacer"></div>
+        <div className={Styles.content}>
+            <div className={Styles.contentLeft}>
+                <img className={Styles.homeContentImage} src="default.jpeg" alt="image" />
+            </div>
+            <div className={Styles.contentRight}>
+                <button className={Styles.ctaButton}>Upload</button>
+                <button className={Styles.ctaButton}>Apply Filter</button>
+                <button className={Styles.ctaButton}>Draw Mode</button>
+                <button className={Styles.ctaButton}>Download</button>
+            </div>
+        </div>
     </div>;
 }

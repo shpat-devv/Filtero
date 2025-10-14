@@ -1,49 +1,74 @@
 .formContainer {
-  background-color: var(--color-background);
+  background: linear-gradient(145deg, #141414, #1f1f1f);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 350px;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  width: 380px;
   height: 70vh;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  color: var(--color-primary);
+  font-family: var(--font-family);
 }
 
 .formContainer h1 {
   font-family: var(--font-title);
   color: var(--color-primary);
-  font-size: 4em;
-  margin-bottom: 200px;
+  font-size: 3.2em;
+  margin-bottom: 60px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
 }
 
 .formInput {
-  width: 90%;
-  padding: 10px;
+  width: 100%;
+  padding: 12px 14px;
   margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  background: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-primary);
+  border-radius: 8px;
   box-sizing: border-box;
+  font-size: 16px;
+  font-family: var(--font-family);
+  transition: all 0.3s ease;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 8px rgba(111, 11, 226, 0.4);
 }
 
 .formButton {
-  width: 95%;
-  padding: 10px;
-  margin: 20px 0;
-  background-color: #007bff;
-  color: white;
+  width: 100%;
+  padding: 12px;
+  margin-top: 25px;
+  background: linear-gradient(135deg, var(--color-accent), #8b2eff);
+  color: var(--color-primary);
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(111, 11, 226, 0.4);
 }
 
 .formButton:hover {
-  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(111, 11, 226, 0.6);
+}
+
+.formButton:active {
+  transform: scale(0.97);
 }
