@@ -15,3 +15,4 @@ class Image(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="images")
     image = models.ImageField(upload_to="uploads/")
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    filter = models.CharField(max_length=10, blank=False, default="")

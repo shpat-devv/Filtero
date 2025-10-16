@@ -1,27 +1,35 @@
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import Styles from "../styles/pages/Home.module.css";
 import api from "../api.js";
 
+
 type UploadStatus = 'idle' | 'uploading' | 'success' | 'error';
+type Filter = 'blur' | 'grayscale' | 'sepia' | 'invert';
 
-export default function FileUploader() {
-    
-    const [file, setFile] = useState<File | null>(null);
+interface FileUploaderProps {
+    onImageChange: (imageUrl: string) => void;
+}
+
+const filters: Filter[] = ['blur', 'grayscale', 'sepia', 'invert'];
+
+const FileUploader: React.FC<FileUploaderProps> = ({ onImageChange }) => {
     const [status, setStatus] = useState<UploadStatus>('idle');
+    const [showFilterPopup, setShowFilterPopup] = useState(false);
+    const [selectedFilter, setSelectedFilter] = useState<Filter | null>(null);
+    const fileRef = useRef<File | null>(null);
 
-    function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-        if (event.target.files && event.target.files.length > 0) {
-            setFile(event.target.files[0] ?? null);
-            if (event.target.files[0]) {
-                handleFileUpload(event.target.files[0]);
-            } else {
-                console.error("No file selected");
-            }
-        }
-    }
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0];
+        if (!selectedFile) return;
 
-    async function handleFileUpload(file: File) {
-        console.log("Uploading file:", file);
+        fileRef.current = selectedFile;
+        const previewUrl = URL.createObjectURL(selectedFile);
+        onImageChange(previewUrl);
+    };
+
+    const handleFileUpload = async () => {
+        const file = fileRef.current;
+
         if (!file) {
             console.error("No file selected for upload.");
             return;
@@ -30,28 +38,50 @@ export default function FileUploader() {
         setStatus('uploading');
         const formData = new FormData();
         formData.append('image', file);
+        formData.append('filter', selectedFilter || '');
 
         try {
             const response = await api.post('/api/image/', formData, {
-                headers: { 
-                    'Content-Type': 'multipart/form-data' ,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`
-                }  
+                }
             });
+
             if (response.status === 200) {
                 setStatus('success');
-                console.log("File uploaded successfully:", response.data);
             } else {
                 setStatus('error');
-                console.error("File upload failed");
             }
         } catch (error) {
             setStatus('error');
-            console.error("File upload error:", error);
         }
+    };
+
+    function handleApplyFilterClick() {
+        setShowFilterPopup(true);
     }
+
+    function handleDrawModeClick() {
+        console.log("Draw Mode button clicked");
+    }
+
+    function handleFilterSelect(filter: Filter) {
+        setSelectedFilter(filter);
+    }
+
+    function handleFilterSave() {
+        setShowFilterPopup(false);
+        console.log("Selected filter:", selectedFilter);
+        handleFileUpload();
+    }
+
+    function handleFilterCancel() {
+        setShowFilterPopup(false);
+    }
+
     return (
-        <div>
+        <div className={Styles.contentRight}>
             <input
                 onChange={handleFileChange}
                 className={Styles.ctaButton}
@@ -60,7 +90,59 @@ export default function FileUploader() {
                 accept="image/*"
                 style={{ display: 'none' }}
             />
-            <label htmlFor="fileInput" className={Styles.ctaButton}>Upload Image</label>
+            <label htmlFor="fileInput" className={Styles.ctaButton}>
+                {status === 'uploading' ? 'Uploading...' : 'Select Image'}
+            </label>
+
+            <button className={Styles.ctaButton} onClick={handleApplyFilterClick}>Apply Filter</button>
+            <button className={Styles.ctaButton} onClick={handleDrawModeClick}>Draw Mode</button>
+            <button onClick={handleFileUpload} className={Styles.ctaButton}>
+                Upload
+            </button>
+
+            {showFilterPopup && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    background: 'rgba(0,0,0,0.3)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1000
+                }}>
+                    <div style={{
+                        background: '#121212',
+                        padding: 24,
+                        borderRadius: 8,
+                        minWidth: 300,
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                    }}>
+                        <h3>Select a Filter</h3>
+                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                            {filters.map((filter) => (
+                                <li key={filter} style={{ margin: '8px 0' }}>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="filter"
+                                            value={filter}
+                                            checked={selectedFilter === filter}
+                                            onChange={() => handleFilterSelect(filter)}
+                                        />
+                                        {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                                    </label>
+                                </li>
+                            ))}
+                        </ul>
+                        <div style={{ marginTop: 16, display: 'flex', gap: 8 }}>
+                            <button onClick={handleFilterSave} className={Styles.ctaButton}>Save</button>
+                            <button onClick={handleFilterCancel} className={Styles.ctaButton}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
-}
+};
+
+export default FileUploader;

@@ -27,5 +27,5 @@ class UserSerializer(serializers.ModelSerializer):
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
-        fields = ["id", "user", "image", "uploaded_at"]
+        fields = ["id", "user", "image", "uploaded_at", "filter"]
         read_only_fields = ["id", "uploaded_at", "user"] #automatically sets id, upload time and user
