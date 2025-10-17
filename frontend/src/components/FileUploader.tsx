@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import Styles from "../styles/pages/Home.module.css";
 import api from "../api.js";
 
-
 type UploadStatus = 'idle' | 'uploading' | 'success' | 'error';
 type Filter = 'blur' | 'grayscale' | 'sepia' | 'invert';
 
@@ -35,6 +34,11 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onImageChange }) => {
             return;
         }
 
+        if (!selectedFilter) {
+            alert("No filter selected.");
+            return;
+        }
+    
         setStatus('uploading');
         const formData = new FormData();
         formData.append('image', file);
@@ -73,7 +77,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onImageChange }) => {
     function handleFilterSave() {
         setShowFilterPopup(false);
         console.log("Selected filter:", selectedFilter);
-        handleFileUpload();
     }
 
     function handleFilterCancel() {

@@ -4,6 +4,7 @@ from rest_framework import generics, viewsets, permissions
 from .serializers import UserSerializer, ImageSerializer
 from .models import Image
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from .helper import apply_filter   
 
 class CreateUserView(generics.CreateAPIView): #needs to be a post method
     queryset = User.objects.all()
@@ -16,4 +17,5 @@ class ImageViewSet(viewsets.ModelViewSet):  #POST = upload | GET id = get image 
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        image_instance = serializer.save(user=self.request.user)
+        apply_filter(image_instance.image, image_instance.filter)
