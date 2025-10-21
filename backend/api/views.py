@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from django.http import FileResponse
 from rest_framework import generics, viewsets, permissions
 from .serializers import UserSerializer, ImageSerializer
 from .models import Image
@@ -16,6 +17,14 @@ class ImageViewSet(viewsets.ModelViewSet):  #POST = upload | GET id = get image 
     serializer_class = ImageSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def perform_create(self, serializer):
-        image_instance = serializer.save(user=self.request.user)
-        apply_filter(image_instance.image, image_instance.filter)
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        image_instance = serializer.save(user=request.user)
+
+        filtered_path = apply_filter(image_instance.image.path, image_instance.filter)
+
+        return FileResponse(
+            open(filtered_path, "rb"),
+            content_type="image/bmp"
+        )

@@ -46,11 +46,18 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onImageChange }) => {
 
         try {
             const response = await api.post('/api/image/', formData, {
+                responseType: 'blob',
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`
                 }
             });
+
+            const imageBlob = response.data;
+            console.log("Received image blob:", imageBlob);
+            const imageUrl = URL.createObjectURL(imageBlob);
+            console.log("Created image URL:", imageUrl);
+            onImageChange(imageUrl);
 
             if (response.status === 200) {
                 setStatus('success');

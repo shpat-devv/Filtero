@@ -7,44 +7,41 @@ from PIL import Image
 
 current_path = pathlib.Path().resolve()
 
-image_processor = os.path.join(current_path, "api/image_process", "filter")
+image_processor = os.path.join(current_path, "api/image_process", "filter") #program written in C to apply filters
 allowed_filters = ["blur", "grayscale", "sepia", "invert"]
-out_file = "image.bmp"
+out_path = "/Users/uglyprincess/Documents/Code/Python/Filtero/backend/api/image_process/old.bmp"
+new_path = "/Users/uglyprincess/Documents/Code/Python/Filtero/backend/api/image_process/new.bmp"
 
-def delete_file(url):
-    os.remove(url)
+def cleanup():
+    #uploads folder
+    for file in os.listdir("uploads"):
+        file_path = os.path.join("uploads", file)
+        os.remove(file_path)
 
-def apply_filter(in_file, filter_name, out_file):
+    #image_processor
+
+def apply_filter(in_path, filter_name):
     if filter_name.lower() not in allowed_filters:
         raise ValueError(f"Filter '{filter_name}' is not allowed")
 
-    if hasattr(in_file, 'path'):
-        in_path = in_file.path 
-    else:
-        in_path = str(in_file)
-
-    out_path = str(out_file)
-
     try:
         with Image.open(in_path) as img:
-            img.convert("RGB").save(in_path)
+            img.convert("RGB").save(out_path)
+            print(f"converted image at {out_path}")
     except Exception as e:
         print(f"Failed to convert image {in_path} to RGB: {e}")
         raise
 
     try:
-        result = subprocess.run(
-            [image_processor, filter_name[0], in_path, out_path],
+        subprocess.run(
+            [image_processor, "-"+filter_name[0], out_path, new_path],
             check=True,
             capture_output=True,
             text=True
         )
-        print("Filter applied successfully")
-        print("stdout:", result.stdout)
-        print("stderr:", result.stderr)
+        cleanup()
     except subprocess.CalledProcessError as e:
         print(f"Couldn't execute {image_processor} with filter {filter_name}")
-        print("Return code:", e.returncode)
-        print("stdout:", e.stdout)
-        print("stderr:", e.stderr)
-        raise
+
+    print(new_path)
+    return new_path
