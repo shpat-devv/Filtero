@@ -8,13 +8,9 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-#TODO: hide key
-SECRET_KEY = 'django-insecure-y@n3x$_+ex_or8=igypm^h^lghv65t2@4p*zsm=g!=wg*fij3d'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(",") #fix allowed hosts so it gets recognized as a list
 
 #JWT support
 REST_FRAMEWORK = {
