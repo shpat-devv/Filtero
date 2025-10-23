@@ -18,9 +18,11 @@ Filtero is a user-friendly platform for applying preset filters to your images, 
 
 ## Todo
 
-- [ ] Fix Header 
-- [ ] Add Filter section
-- [ ] Add Footer
+- Add filter previews
+- Add Download option
+- Add loading bar
+- Fix program not executing on render 
+- add about page
 
 ## Features
 

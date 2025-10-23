@@ -3,18 +3,19 @@ import Styles from "../styles/pages/Home.module.css";
 import api from "../api.js";
 
 type UploadStatus = 'idle' | 'uploading' | 'success' | 'error';
-type Filter = 'blur' | 'grayscale' | 'sepia' | 'invert';
+type Filter = 'blur' | 'grayscale' | 'sepia' | 'revert';
 
 interface FileUploaderProps {
     onImageChange: (imageUrl: string) => void;
 }
 
-const filters: Filter[] = ['blur', 'grayscale', 'sepia', 'invert'];
+const filters: Filter[] = ['blur', 'grayscale', 'sepia', 'revert'];
 
 const FileUploader: React.FC<FileUploaderProps> = ({ onImageChange }) => {
     const [status, setStatus] = useState<UploadStatus>('idle');
     const [showFilterPopup, setShowFilterPopup] = useState(false);
     const [selectedFilter, setSelectedFilter] = useState<Filter | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
     const fileRef = useRef<File | null>(null);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,8 +39,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onImageChange }) => {
             alert("No filter selected.");
             return;
         }
-    
+
         setStatus('uploading');
+        setIsLoading(true);
         const formData = new FormData();
         formData.append('image', file);
         formData.append('filter', selectedFilter || '');
@@ -52,7 +54,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onImageChange }) => {
                     'Authorization': `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`
                 }
             });
-
             const imageBlob = response.data;
             console.log("Received image blob:", imageBlob);
             const imageUrl = URL.createObjectURL(imageBlob);
@@ -66,6 +67,8 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onImageChange }) => {
             }
         } catch (error) {
             setStatus('error');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -75,6 +78,22 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onImageChange }) => {
 
     function handleDrawModeClick() {
         console.log("Draw Mode button clicked");
+    }
+
+    function handleDownloadClick() {
+        const currentImage = document.querySelector('img'); 
+    
+        if (!currentImage || !currentImage.src) {
+            alert("No image to download");
+            return;
+        }
+
+        const link = document.createElement('a');
+        link.href = currentImage.src;
+        link.download = `filtered-image-${Date.now()}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     function handleFilterSelect(filter: Filter) {
@@ -106,9 +125,40 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onImageChange }) => {
 
             <button className={Styles.ctaButton} onClick={handleApplyFilterClick}>Apply Filter</button>
             <button className={Styles.ctaButton} onClick={handleDrawModeClick}>Draw Mode</button>
-            <button onClick={handleFileUpload} className={Styles.ctaButton}>
-                Upload
+            <button onClick={handleFileUpload} className={Styles.ctaButton} disabled={isLoading}>
+                {isLoading ? 'Processing...' : 'Upload'}
             </button>
+            <button onClick={handleDownloadClick} className={Styles.ctaButton}>Download</button>
+            
+            {isLoading && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    background: 'rgba(0,0,0,0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1000
+                }}>
+                    <div style={{
+                        background: '#121212',
+                        padding: 40,
+                        borderRadius: 8,
+                        textAlign: 'center'
+                    }}>
+                        <div style={{
+                            border: '4px solid #333',
+                            borderTop: '4px solid #fff',
+                            borderRadius: '50%',
+                            width: 50,
+                            height: 50,
+                            animation: 'spin 1s linear infinite',
+                            margin: '0 auto 16px'
+                        }} />
+                        <p>Processing your image...</p>
+                    </div>
+                </div>
+            )}
 
             {showFilterPopup && (
                 <div style={{
