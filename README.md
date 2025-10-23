@@ -16,19 +16,10 @@ Filtero is a user-friendly platform for applying preset filters to your images, 
 
 ---
 
-## Todo
-
-- Add filter previews
-- Add Download option
-- Add loading bar
-- Fix program not executing on render 
-- add about page
-
 ## Features
 
 - **Preset Filters:** Instantly apply a variety of filters to your images.
 - **Image Upload:** Upload images directly from your device.
-- **Preview:** See real-time previews before saving.
 - **Download & Share:** Download your edited images or share them online.
 - **Upcoming:** Full-featured image editing tools.
 
@@ -38,7 +29,7 @@ Filtero is a user-friendly platform for applying preset filters to your images, 
 
 - **Backend:** [Django](https://www.djangoproject.com/)
 - **Frontend:** [React](https://react.dev/)
-- **Database:** //TODO: Decide on a database
+- **Database:** SQLite 
 - **APIs:** RESTful, axios
 - **Authentication:** JWT
 
@@ -55,7 +46,6 @@ Create `.env` files in both `backend/` and `frontend/` directories. See `.env.ex
 ```
 /backend      # Django project
 /frontend     # React app
-/design       # Page design
 ```
 
 ---
@@ -68,8 +58,6 @@ Create `.env` files in both `backend/` and `frontend/` directories. See `.env.ex
 4. Push to your branch
 5. Open a Pull Request
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
-
 ---
 
 ## License
@@ -77,6 +65,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
-
-*Enhance. Create. Share. Welcome to Filtero!*
-
