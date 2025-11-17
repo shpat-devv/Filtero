@@ -164,19 +164,19 @@ make filter
 ---
 
 ## FAQ
-**Q: Can I add my own filters?**
+Q: Can I add my own filters?
 A: Yes, inside the source code in the `backend/api/image_process` directory you can edit the c files and add any filter preset you want.
-**Q: Is there a limit to the image size I can upload?**
+Q: Is there a limit to the image size I can upload?
 A: Currently, there is no limit, but very large images may take longer to process.
-**Q: How secure is my data?**
+Q: How secure is my data?
 A: This uses JWT for authentication and follow best practices to ensure your data is secure.   
-**Q: Why do i need a .env file?**
+Q: Why do i need a .env file?
 A: Because hardcoding URLs sucks and breaks things when you deploy. Also security risk.
-**Q: What image formats are supported?**
+Q: What image formats are supported?
 A: Currently i have tested it with jpeg, png and bmp formats.
-**Q: Where are my images stored?**
+Q: Where are my images stored?
 A: Uploaded images are stored in the `media/` directory and immediately deleted after processing for privacy (its to save space actually).
-**Q: How can i host this project?**
+Q: How can i host this project?
 A: Im hosting it using vercel for the frontend and render for the backend, They both have free tiers that work great for small projects like this.
 ---
 
