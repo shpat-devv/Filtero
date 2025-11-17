@@ -4,14 +4,33 @@ Filtero is a user-friendly platform for applying preset filters to your images, 
 
 ---
 
+## How it works?
+
+First you have the frontend which my default sends you to the login page (if you're not already logged in). To have a working connection you need to create a .env file inside the root of the frontend and set the VITE_API_URL to a value. EXAMPLE:
+
+```
+VITE_API_URL = "http://127.0.0.1:8000/
+```
+
+ This would work if the backend is running locally on the port 8000 (which is the default for django). The frontend will use that address to communicate with the backend via urls, the main urls are:
+
+```
+/api/user/register/  # will register new user
+/api/token/          # will authenticate user using a token
+/api/token/refresh/  # will refresh the token of an authenticated user
+/api/image/          # will accept images and send the filtered image back
+```
+
+To communicate with those urls i made an api.js file in src folder which uses axios for all the communication
+
 ## Table of Contents
 
 - [Features](#features)
 - [Tech Stack](#tech-stack)
+- [Installation](#installation)
 - [Environment Variables](#environment-variables)
 - [Project Structure](#project-structure)
 - [Contributing](#contributing)
-- [Design](#design)
 - [License](#license)
 
 ---
@@ -29,15 +48,57 @@ Filtero is a user-friendly platform for applying preset filters to your images, 
 
 - **Backend:** [Django](https://www.djangoproject.com/)
 - **Frontend:** [React](https://react.dev/)
-- **Database:** SQLite 
+- **Database:** SQLite
 - **APIs:** RESTful, axios
 - **Authentication:** JWT
 
 ---
 
+## Installation
+
+To install and setup Filtero run these commands:
+
+```clone project using git
+git clone https://github.com/shpat-devv/Filtero.git
+cd Filtero
+```
+
+```backend setup
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+```frontend setup
+cd ../frontend
+npm install
+npm run dev
+```
+    
+---
+
 ### Environment Variables
 
-Create `.env` files in both `backend/` and `frontend/` directories. See `.env.example` for required variables.
+Create `.env` files in both `backend/` and `frontend/` directories.
+
+Example config for backend .env:
+
+```
+SECRET_KEY = 'example key'
+DEBUG = True
+ALLOWED_HOSTS=127.0.0.1,localhost
+```
+
+Example config for frontend.env
+```
+/api/user/register/  # will register new user
+/api/token/          # will authenticate user using a token
+/api/token/refresh/  # will refresh the token of an authenticated user
+/api/image/          # will accept images and send the filtered image back
+```
 
 ---
 
@@ -62,6 +123,6 @@ Create `.env` files in both `backend/` and `frontend/` directories. See `.env.ex
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project was made for fun, do whatever you want with it!.
 
 ---
