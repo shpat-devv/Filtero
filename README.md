@@ -1,18 +1,18 @@
 # Filtero
 
-Filtero is a user-friendly platform for applying preset filters to your images, with advanced image editing features coming soon. Built with Django (backend) and React (frontend), Filtero makes it easy to enhance your photos and share your creativity.
+Filtero is a simple and fun platform for applying preset filters to your images. It’s built with Django on the backend and React on the frontend, and the whole goal is to make it super easy for you to upload a picture, pick a filter, and download something cooler than what you started with. More advanced editing features are coming soon, so this project will keep growing over time.
 
 ---
 
 ## How it works?
 
-First you have the frontend which my default sends you to the login page (if you're not already logged in). To have a working connection you need to create a .env file inside the root of the frontend and set the VITE_API_URL to a value. EXAMPLE:
+When you open the frontend, it will automatically take you to the login page (unless you’re already logged in). To make the connection between the frontend and backend work, you need to create a .env file inside the root of the frontend and set a VITE_API_URL.
 
-```
+```Example frontend .env
 VITE_API_URL = "http://127.0.0.1:8000/
 ```
 
- This would work if the backend is running locally on the port 8000 (which is the default for django). The frontend will use that address to communicate with the backend via urls, the main urls are:
+ This would work if the backend is running locally on the port 8000 (which is the default for django). The frontend will use that address to communicate with the backend via urls, the main endpoints are:
 
 ```
 /api/user/register/  # will register new user
@@ -32,6 +32,7 @@ To communicate with those urls i made an api.js file in src folder which uses ax
 - [Project Structure](#project-structure)
 - [Contributing](#contributing)
 - [Error Handling](#error-handling)
+- [FAQ](#faq)
 - [License](#license)
 
 ---
@@ -107,7 +108,27 @@ Example config for frontend.env
 
 ```
 /backend      # Django project
+    /api         # Django app
+        /migrations    # Database migrations
+        /views         # API views
+        /models        # Database models
+        /serializers   # Data serializers
+        /image_process  # Image processing logic
+    /backend      # Django project settings
+        /settings.py  # Project settings
+        /urls.py      # URL configurations
+    manage.py    # Django management script
+    sqlite.db    # SQLite database file
+
 /frontend     # React app
+    /public
+        default.jpeg  # Default image used in the app
+    /src
+        /components  # React components
+        /pages       # React pages
+        /styles      # CSS styles
+        constants.js # Variables like ACCESS_TOKEN, REFRESH_TOKEN
+        api.js       # Axios API calls
 ```
 
 ---
@@ -140,6 +161,23 @@ That means the program used for the image processing is missing. You can compile
 cd backend/api/image_process
 make filter
 ```
+---
+
+## FAQ
+**Q: Can I add my own filters?**
+A: Yes, inside the source code in the `backend/api/image_process` directory you can edit the c files and add any filter preset you want.
+**Q: Is there a limit to the image size I can upload?**
+A: Currently, there is no limit, but very large images may take longer to process.
+**Q: How secure is my data?**
+A: This uses JWT for authentication and follow best practices to ensure your data is secure.   
+**Q: Why do i need a .env file?**
+A: Because hardcoding URLs sucks and breaks things when you deploy. Also security risk.
+**Q: What image formats are supported?**
+A: Currently i have tested it with jpeg, png and bmp formats.
+**Q: Where are my images stored?**
+A: Uploaded images are stored in the `media/` directory and immediately deleted after processing for privacy (its to save space actually).
+**Q: How can i host this project?**
+A: Im hosting it using vercel for the frontend and render for the backend, They both have free tiers that work great for small projects like this.
 ---
 
 ## License
