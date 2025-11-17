@@ -31,6 +31,7 @@ To communicate with those urls i made an api.js file in src folder which uses ax
 - [Environment Variables](#environment-variables)
 - [Project Structure](#project-structure)
 - [Contributing](#contributing)
+- [Error Handling](#error-handling)
 - [License](#license)
 
 ---
@@ -77,7 +78,7 @@ cd ../frontend
 npm install
 npm run dev
 ```
-    
+
 ---
 
 ### Environment Variables
@@ -119,6 +120,25 @@ Example config for frontend.env
 4. Push to your branch
 5. Open a Pull Request
 
+---
+
+## Error Handling
+
+If you get any missing environment variable errors, make sure you have created the .env files in both backend and frontend with the correct variables as shown above.
+
+If you encounter issues about missing packages, ensure you have installed all dependencies shown above.
+
+If you get a database error, ensure you have run the migrations for the backend.
+
+If you get a missing file error like this:
+
+```FileNotFoundError: [Errno 2] No such file or directory: '/Users/your_user/Documents/Code/Python/Filtero/backend/api/image_process/filter'```
+
+That means the program used for the image processing is missing. You can compile it from source using these commands:
+
+```cd backend/api/image_process
+make filter
+```
 ---
 
 ## License
