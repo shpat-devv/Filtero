@@ -136,7 +136,8 @@ If you get a missing file error like this:
 
 That means the program used for the image processing is missing. You can compile it from source using these commands:
 
-```cd backend/api/image_process
+```
+cd backend/api/image_process
 make filter
 ```
 ---
