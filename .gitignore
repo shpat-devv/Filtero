@@ -1,0 +1,129 @@
+# ================================
+# Python / Django
+# ================================
+
+# Python cache / compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Django generated files
+media/
+staticfiles/
+
+# ================================
+# Node / React / Vite
+# ================================
+
+# Dependencies
+node_modules/
+
+# Production builds
+frontend/dist/
+frontend/build/
+
+# Vite
+frontend/.vite/
+
+# Frontend environment variables
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# npm / yarn / pnpm logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Coverage
+coverage/
+.nyc_output/
+
+# TypeScript
+*.tsbuildinfo
+
+
+# ================================
+# IDE / Editors
+# ================================
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# PyCharm / IntelliJ
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+*.swp
+*.swo
+*~
+
+
+# ================================
+# OS generated files
+# ================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+
+
+# ================================
+# Misc
+# ================================
+
+# Temporary files
+*.tmp
+*.temp
+
+# Python testing / caching
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
