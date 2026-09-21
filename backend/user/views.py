@@ -29,7 +29,9 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         return self.request.user
 
-class UserEditView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
+class UserEditView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user

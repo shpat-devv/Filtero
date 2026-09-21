@@ -12,6 +12,8 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(",")
 
 DEBUG = os.getenv('DEBUG')
 
+AUTH_USER_MODEL = 'user.User'
+
 #JWT support
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (

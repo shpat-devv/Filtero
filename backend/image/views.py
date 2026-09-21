@@ -1,3 +1,4 @@
+'''
 from django.shortcuts import render
 from django.http import FileResponse
 from rest_framework import generics, viewsets, permissions
@@ -22,3 +23,4 @@ class ImageViewSet(viewsets.ModelViewSet):
             open(filtered_path, "rb"),
             content_type="image/bmp"
         )
+'''
