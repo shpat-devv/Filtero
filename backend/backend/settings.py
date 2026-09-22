@@ -9,6 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(",") 
+CSRF_TRUSTED_ORIGINS = ["https://localhost:8000"]
 
 DEBUG = os.getenv('DEBUG')
 
