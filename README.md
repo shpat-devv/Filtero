@@ -59,12 +59,27 @@ npm run dev
 
 ---
 
-## Incoming Updates
+## Planning
 
-- **Add options:** Instantly apply a variety of filters to your images.
-- **Image Upload:** Upload images directly from your device.
-- **Download & Share:** Download your edited images or share them online.
-- **Upcoming:** Full-featured image editing tools.
+Filtero is just meant to be a fun full stack project to be used in my portfolio. Basically its a platform where users can create accounts, select photos to apply filters, and then view/manage all the images.
+
+The important parts are that the user handling works, that the image filtering works and that everything gets stored. I visualize a modern interface, where after login the user can select an image (that meets criteria). That image gets sent to the django backend, where it will be converted to gimp and applied the filter using the C program. Afterwards the image gets uploaded and stored on an s3 bucket? specific to the user
+
+backend:
+
+    user
+        allow user creations
+        dissallow duplications
+        handle jwt tokens
+    image
+        receive images
+        apply filter using C program
+        store in s3 bucket
+        send url back to user
+        let user download and do whatever
+    extra
+
+
 
 ## License
 
