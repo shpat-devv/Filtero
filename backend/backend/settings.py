@@ -15,6 +15,9 @@ DEBUG = os.getenv('DEBUG')
 
 AUTH_USER_MODEL = 'user.User'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 #JWT support
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -115,8 +118,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-#TODO: fix origins later
-CORS_ALLOW_ALL_ORIGINS = True
-CORSE_ALLOWS_CREDENTIALS = True

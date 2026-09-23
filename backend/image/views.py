@@ -1,16 +1,20 @@
-'''
 from django.shortcuts import render
 from django.http import FileResponse
-from rest_framework import generics, viewsets, permissions
+from django.contrib.auth import get_user_model
+
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework import generics, viewsets
+
 from .serializers import UserSerializer, ImageSerializer
 from .models import Image
-from rest_framework.permissions import IsAuthenticated, AllowAny
 from .helper import apply_filter   
 
-class ImageViewSet(viewsets.ModelViewSet):  
+User = get_user_model()
+
+class ImageUploadView(viewsets.ModelViewSet):  
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
